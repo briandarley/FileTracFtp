@@ -77,6 +77,14 @@ namespace FileTracFtp.FTP
                         }
                         this.Log().Info("Downloading file {0}.", file.Filename);
                         ftpService.Download(file.Filename, file.Filename);
+
+                        var fileTime = string.Format("{0} {1}", file.Date, file.Time);
+
+                        this.Log().Info("Altering file metrics {0}.", fileTime);
+
+                        File.SetCreationTime(localFileName, DateTime.Parse(fileTime));
+                        File.SetLastWriteTime(localFileName, DateTime.Parse(fileTime));
+
                         totalDownloadedFiles++;
                         
                     }
